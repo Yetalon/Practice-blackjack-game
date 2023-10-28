@@ -1,18 +1,95 @@
-let firstCard = 10
-let secondCard = 4
-let sum = firstCard + secondCard
-let hasBlackJack = false
-let isAlive = true
-let message = ""
+let dealerscardsEL = document.getElementById("dealercards-el");
+let dealerssumEL = document.getElementById("dealersum-el");
 
-if (sum <= 20) {
-    message = "Do you want to draw a new card? 🙂"
-} else if (sum === 21) {
-    message = "Wohoo! You've got Blackjack! 🥳"
-    hasBlackJack = true
-} else {
-    message = "You're out of the game! 😭"
-    isAlive = false
+let dealerscards = [];
+
+let cards = [];
+
+let sums = {
+    sum: 0,
+    dealers_sum: 0,
+};
+
+function start (){
+    let { playersum, dealers_sum } = startingcards();
+    game(playersum, dealers_sum);
+};
+
+function startingcards(){
+    let firstCard = getRandomCard();
+    let secondCard = getRandomCard();
+    let dealersfirstcard = getRandomCard();
+    let dealersecondcard = getRandomCard();
+    cards.push(firstCard, secondCard);
+    dealerscards.push(dealersfirstcard, dealersecondcard);
+    let dealers_sum = dealersfirstcard;
+    let sum = firstCard + secondCard;
+    return {playersum: sum, dealers_sum: dealers_sum};    
 }
 
-console.log(message)
+function getRandomCard(){
+    return Math.floor(Math.random() * (13 - 1)) + 1; 
+}
+
+let hasBlackJack = false;
+let isAlive = true;
+let message;
+let messageEL = document.getElementById("message-el");
+let sumEl = document.getElementById("sum-el");
+let CardsEl = document.getElementById("cards-el");
+
+function game(sum, dealers_sum) {
+    CardsEl.textContent = "Cards: " + cards[0] + " , " +  cards[1];
+    for(let i=0; i<cards.length; i++){
+        if(cards[i] !== undefined && cards[i] != cards[0] && cards[i] != cards[1]){
+            CardsEl.textContent += " , " + cards[i];
+        }
+    }
+    dealerscardsEL.textContent = "Dealer Cards: " + dealerscards[0];
+    dealerssumEL.textContent = "Dealer Sum: " + dealers_sum;
+    sumEl.textContent = "Sum: " + sum;
+    if (sum <= 20) {
+        message = "Do you want to draw?";
+    } else if (sum === 21) {
+        message = "Blackjack!";
+        hasBlackJack = true;
+    } else {
+        message = "Bust!";
+        isAlive = false;
+    }
+    messageEL.textContent = message;    
+};
+
+let newcard;
+
+function draw(){
+    newcard = getRandomCard();
+    sum += newcard;
+    cards.push(newcard);
+    game(sum, sums.dealers_sum);
+};
+
+function stand() {
+    let dealers_sum = 0;
+    for (let j = 0; j < dealerscards.length; j++) {
+        if (dealerscards[j] !== undefined) {
+            dealers_sum += dealerscards[j];
+        }
+    }
+    for (let j = 0; j < dealerscards.length; j++) {
+        if (dealerscards[j] !== undefined && dealerscards[j] != dealerscards[0]) {
+            dealerscardsEL.textContent += " , " + dealerscards[j];
+        }
+    }
+    dealerssumEL.textContent = "Sum: " + dealers_sum;
+
+}
+
+function startover(){
+    dealerssumEL.textContent = "Dealer Sum: "
+    dealerscardsEL.textContent = "Dealer Cards: "
+    sumEl.textContent = "Sum: ";
+    CardsEl.textContent = "Cards: ";
+    cards = [];
+    dealerscards = [];
+};

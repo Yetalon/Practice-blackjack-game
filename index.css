@@ -1,13 +1,34 @@
-/* Complete the CSS styling according to the provided design */
 
 body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    background-image: url(images/table.png);
+    background-size: cover;
+    text-align: center;
+    font-weight: bold;
     
 }
 
+button{
+    color: seagreen;
+    background-color: rgb(194, 165, 0);
+    outline: 1px;
+    width: 130px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    align-content: space-around;
+    position: inherit;
+    margin-bottom: 4px;
+}
+
 h1 {
-    color: goldenrod;
+    color: rgb(194, 165, 0);
+    text-align: center;
+    
 }
 
 #message-el {
+    font-style: italic;
     
 }

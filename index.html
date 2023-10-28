@@ -5,8 +5,15 @@
     <body>
         <h1>Blackjack</h1>
         <p id="message-el">Want to play a round?</p>
-        <p>Cards:</p>
-        <p>Sum:</p>
+        <p id ="dealercards-el">Dealers Cards:</p>
+        <p id="dealersum-el">Dealers Total:</p>
+        <p id ="cards-el">Cards:</p>
+        <p id="sum-el">Total:</p>
+        <button onclick="start()">Start Game</button> 
+        <button onclick = "startover()">New Game</button>
+        <p id="placeholder"></p>
+        <button id ="myButton" onclick="draw()">Draw</button>
+        <button onclick="stand()">Stand</button>
         <script src="index.js"></script>
     </body>
 </html>
