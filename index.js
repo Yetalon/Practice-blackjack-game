@@ -28,7 +28,7 @@ function startingcards(){
 }
 
 function getRandomCard(){
-    return Math.floor(Math.random() * (13 - 1)); 
+    return Math.floor(Math.random() * 12)-1; 
 }
 
 let hasBlackJack = false;
