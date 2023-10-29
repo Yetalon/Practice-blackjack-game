@@ -77,7 +77,7 @@ function draw(){
 };
 
 function stand() {
-    dealers_sum = 0;
+    let dealers_sum = 0;
     for (let j = 0; j < dealerscards.length; j++) {
         if (dealerscards[j] !== undefined) {
             dealers_sum += dealerscards[j];
