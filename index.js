@@ -9,10 +9,35 @@ let sums = {
     sum: 0,
     dealers_sum: 0,
 };
-
+let drawbutton = document.getElementById("draw-btn");
+drawbutton.style.display = "none";
+let standbutton = document.getElementById("stand-btn");
+standbutton.style.display = "none";
+let newgamebutton = document.getElementById("newgame-btn");
+newgamebutton.style.display = "none";
+let startgamebutton = document.getElementById("startgame-btn");
 function start (){
     let { playersum, dealers_sum } = startingcards();
     game(playersum, dealers_sum);
+    if (playersum === 21) {
+        message = "Blackjack!";
+        hasBlackJack = true;
+        messageEL.textContent = message;  
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
+    }
+    else if (playersum > 21) {
+        message = "Bust!";
+        isAlive = false;
+        messageEL.textContent = message;  
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
+    }
+        
+    startgamebutton.style.display = "none";
+    newgamebutton.style.display = "none";
 };
 
 function startingcards(){
@@ -24,6 +49,8 @@ function startingcards(){
     dealerscards.push(dealersfirstcard, dealersecondcard);
     let dealers_sum = dealersfirstcard;
     let sum = firstCard + secondCard;
+    standbutton.style.display = "inline";
+    drawbutton.style.display = "inline";
     return {playersum: sum, dealers_sum: dealers_sum};    
 }
 
@@ -46,16 +73,24 @@ function game(sum, dealers_sum) {
         }
     }
     dealerscardsEL.textContent = "Dealer Cards: " + dealerscards[0];
-    dealerssumEL.textContent = "Dealer Sum: " + dealers_sum;
-    sumEl.textContent = "Sum: " + sum;
+    dealerssumEL.textContent = "Dealer Total: " + dealers_sum;
+    sumEl.textContent = "Total: " + sum;
     if (sum <= 20) {
         message = "Do you want to draw?";
     } else if (sum === 21) {
         message = "Blackjack!";
         hasBlackJack = true;
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
+        
     } else {
         message = "Bust!";
         isAlive = false;
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
+
     }
     messageEL.textContent = message;    
 };
@@ -83,7 +118,7 @@ function stand() {
             dealers_sum += dealerscards[j];
         }
     }
-    while (dealers_sum < 16) {
+    while (dealers_sum <= 16) {
         let newcard = getRandomCard();
         dealerscards.push(newcard);
         dealers_sum += newcard;
@@ -96,34 +131,48 @@ function stand() {
     }
     if (dealers_sum > 21) {
         message = "Dealer Bust! You Win!";
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
     }
     else if (dealers_sum < sum && sum <= 21){
         message = "You Win!";
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
     }
     else if (sum > 21){
         message = "You Bust! Dealer Wins!";
     }
     else if (dealers_sum === sum){
         message = "Draw!";
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
     }
     else if (dealers_sum > sum){
         message = "Dealer Wins!";
+        drawbutton.style.display = "none";
+        standbutton.style.display = "none";
+        newgamebutton.style.display = "inline";
     }
     for (let j = 0; j < dealerscards.length; j++) {
-        if (dealerscards[j] !== undefined && dealerscards[j] != dealerscards[0]) {
+        if (dealerscards[j] !== undefined && dealerscards[j] !== dealerscards[0]) {
             dealerscardsEL.textContent += " , " + dealerscards[j];
         }
     }
-    dealerssumEL.textContent = "Sum: " + dealers_sum;
+    dealerssumEL.textContent = "Total: " + dealers_sum;
     messageEL.textContent = message;
 }
 
 function startover(){
-    dealerssumEL.textContent = "Dealer Sum: "
+    dealerssumEL.textContent = "Dealer Total: "
     dealerscardsEL.textContent = "Dealer Cards: "
-    sumEl.textContent = "Sum: ";
+    sumEl.textContent = "Total: ";
     CardsEl.textContent = "Cards: ";
     cards = [];
     dealerscards = [];
     messageEL.textContent = "Want to play a round?";
+    startgamebutton.style.display = "inline";
+    newgamebutton.style.display = "none";
 };
