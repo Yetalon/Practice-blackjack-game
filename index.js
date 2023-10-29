@@ -97,7 +97,7 @@ function stand() {
     if (dealers_sum > 21) {
         message = "Dealer Bust! You Win!";
     }
-    else if (dealers_sum < sum){
+    else if (dealers_sum < sum && sum <= 21){
         message = "You Win!";
     }
     else if (sum > 21){
