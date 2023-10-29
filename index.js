@@ -17,6 +17,7 @@ let newgamebutton = document.getElementById("newgame-btn");
 newgamebutton.style.display = "none";
 let startgamebutton = document.getElementById("startgame-btn");
 function start (){
+    newgamebutton.style.display = "none";
     let { playersum, dealers_sum } = startingcards();
     game(playersum, dealers_sum);
     if (playersum === 21) {
@@ -37,7 +38,7 @@ function start (){
     }
         
     startgamebutton.style.display = "none";
-    newgamebutton.style.display = "none";
+    
 };
 
 function startingcards(){
