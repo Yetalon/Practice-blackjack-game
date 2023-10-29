@@ -83,7 +83,7 @@ function stand() {
             dealers_sum += dealerscards[j];
         }
     }
-    while (dealers_sum < 17) {
+    while (dealers_sum < 16) {
         let newcard = getRandomCard();
         dealerscards.push(newcard);
         dealers_sum += newcard;
