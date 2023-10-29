@@ -106,6 +106,9 @@ function stand() {
     else if (dealers_sum === sum){
         message = "Draw!";
     }
+    else if (dealers_sum > sum){
+        message = "Dealer Wins!";
+    }
     for (let j = 0; j < dealerscards.length; j++) {
         if (dealerscards[j] !== undefined && dealerscards[j] != dealerscards[0]) {
             dealerscardsEL.textContent += " , " + dealerscards[j];
