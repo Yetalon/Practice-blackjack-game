@@ -103,7 +103,7 @@ function stand() {
     else if (sum > 21){
         message = "You Bust! Dealer Wins!";
     }
-    else if (dealers_sum = sum){
+    else if (dealers_sum === sum){
         message = "Draw!";
     }
     for (let j = 0; j < dealerscards.length; j++) {
