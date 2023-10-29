@@ -22,7 +22,7 @@ function startingcards(){
     let dealersecondcard = getRandomCard();
     cards.push(firstCard, secondCard);
     dealerscards.push(dealersfirstcard, dealersecondcard);
-    let dealers_sum = dealersfirstcard;
+    sums.dealers_sum = dealersfirstcard;
     let sum = firstCard + secondCard;
     return {playersum: sum, dealers_sum: dealers_sum};    
 }
@@ -77,16 +77,16 @@ function draw(){
 };
 
 function stand() {
-    let dealers_sum = 0;
+    sum.dealers_sum = 0;
     for (let j = 0; j < dealerscards.length; j++) {
         if (dealerscards[j] !== undefined) {
-            dealers_sum += dealerscards[j];
+            sum.dealers_sum += dealerscards[j];
         }
     }
-    while (dealers_sum < 16) {
+    while (sum.dealers_sum < 16) {
         let newcard = getRandomCard();
         dealerscards.push(newcard);
-        dealers_sum += newcard;
+        sum.dealers_sum += newcard;
     }
     let sum = 0;
     for(let i=0; i<cards.length; i++){
@@ -94,16 +94,16 @@ function stand() {
             sum += cards[i];
         }
     }
-    if (dealers_sum > 21) {
+    if (sum.dealers_sum > 21) {
         message = "Dealer Bust! You Win!";
     }
-    else if (dealers_sum < sum){
+    else if (sum.dealers_sum < sum){
         message = "You Win!";
     }
     else if (sum > 21){
         message = "You Bust! Dealer Wins!";
     }
-    else if (dealers_sum = sum){
+    else if (sum.dealers_sum = sum){
         message = "Draw!";
     }
     for (let j = 0; j < dealerscards.length; j++) {
