@@ -28,7 +28,7 @@ function startingcards(){
 }
 
 function getRandomCard(){
-    return Math.floor(Math.random() * (13 - 1)) + 1; 
+    return Math.floor(Math.random() * (13 - 1)); 
 }
 
 let hasBlackJack = false;
@@ -63,10 +63,17 @@ function game(sum, dealers_sum) {
 let newcard;
 
 function draw(){
+    let sum = 0;
+    for(let i=0; i<cards.length; i++){
+        if(cards[i] !== undefined){
+            sum += cards[i];
+        }
+    }
+    let dealers_sum = dealerscards[0];
     newcard = getRandomCard();
     sum += newcard;
     cards.push(newcard);
-    game(sum, sums.dealers_sum);
+    game(sum, dealers_sum);
 };
 
 function stand() {
@@ -76,13 +83,36 @@ function stand() {
             dealers_sum += dealerscards[j];
         }
     }
+    while (dealers_sum < 17) {
+        let newcard = getRandomCard();
+        dealerscards.push(newcard);
+        dealers_sum += newcard;
+    }
+    let sum = 0;
+    for(let i=0; i<cards.length; i++){
+        if(cards[i] !== undefined){
+            sum += cards[i];
+        }
+    }
+    if (dealers_sum > 21) {
+        message = "Dealer Bust! You Win!";
+    }
+    else if (dealers_sum < sum){
+        message = "You Win!";
+    }
+    else if (sum > 21){
+        message = "You Bust! Dealer Wins!";
+    }
+    else if (dealers_sum = sum){
+        message = "Draw!";
+    }
     for (let j = 0; j < dealerscards.length; j++) {
         if (dealerscards[j] !== undefined && dealerscards[j] != dealerscards[0]) {
             dealerscardsEL.textContent += " , " + dealerscards[j];
         }
     }
     dealerssumEL.textContent = "Sum: " + dealers_sum;
-
+    messageEL.textContent = message;
 }
 
 function startover(){
@@ -92,4 +122,5 @@ function startover(){
     CardsEl.textContent = "Cards: ";
     cards = [];
     dealerscards = [];
+    messageEL.textContent = "Want to play a round?";
 };
